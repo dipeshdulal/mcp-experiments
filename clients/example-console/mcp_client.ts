@@ -43,7 +43,7 @@ export class MCPClientApplication {
     // });
 
     const transport = new SSEClientTransport(
-      new URL("https://8509-2404-7c00-48-6d1d-7034-3060-d8d3-d50d.ngrok-free.app/sse"),
+      new URL("http://localhost:3000/sse"),
     );
 
     await this.mcpClient.connect(transport);
