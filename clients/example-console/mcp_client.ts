@@ -4,6 +4,7 @@ import { StdioClientTransport } from "@modelcontextprotocol/sdk/client/stdio.js"
 import { LLMClient } from "./llm_client";
 import type OpenAI from "openai";
 import readline from "readline";
+import { SSEClientTransport } from "@modelcontextprotocol/sdk/client/sse.js";
 
 export class MCPClientApplication {
   private mcpClient: Client;
@@ -36,10 +37,14 @@ export class MCPClientApplication {
   async init() {
     console.log("initializing mcp client...");
 
-    const transport = new StdioClientTransport({
-      command: "bun",
-      args: ["run", "./test_mcp_server.ts"],
-    });
+    // const transport = new StdioClientTransport({
+    //   command: "bun",
+    //   args: ["run", "./test_mcp_server.ts"],
+    // });
+
+    const transport = new SSEClientTransport(
+      new URL("https://8509-2404-7c00-48-6d1d-7034-3060-d8d3-d50d.ngrok-free.app/sse"),
+    );
 
     await this.mcpClient.connect(transport);
 
